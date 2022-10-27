@@ -6,12 +6,16 @@ public class urinals {
         Scanner in = new Scanner(System.in);
         System.out.print("\nEnter Input:");
         input = in.nextLine();
-        goodString(input);
+        System.out.println(goodString(input));
     }
 
     public static Boolean goodString(String str) {
-        System.out.println("Input = " + str);
-        System.out.println("Not yet implemented!");
+
+        for (int i = 0; i < str.length() - 1; i++) {
+            if (str.charAt(i) == '1' && str.charAt(i + 1) == '1') {
+                return false;
+            }
+        }
         return true;
     }
 }
