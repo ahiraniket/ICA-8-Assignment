@@ -14,17 +14,17 @@ class urinalsTest {
                 () -> assertEquals(false, urinals.goodString("1110")),
                 () -> assertEquals(true, urinals.goodString("10101"))
         );
-        System.out.println(author + "GoodString --> Test Cases => TEST EXECUTED -----");
+        System.out.println(author + "GoodString --> Test Cases => TEST SUCCESSFUL -----");
     }
 
     @Test
     void openFile() {
         File file = new File(input_fname);
         assertTrue(file.exists());
-        System.out.println(author + "Read File Tests --> File Exists => TEST EXECUTED -----");
+        System.out.println(author + "Read File Tests --> File Exists => TEST SUCCESSFUL -----");
 
         assertTrue(file.length() != 0);
-        System.out.println(author + "Read File Tests --> File Empty => TEST EXECUTED -----");
+        System.out.println(author + "Read File Tests --> File Empty => TEST SUCCESSFUL -----");
 
 
     }
@@ -39,19 +39,32 @@ class urinalsTest {
                 () -> assertEquals(1, urinals.countUrinals("01000")),
                 () -> assertEquals(-1, urinals.countUrinals("011"))
         );
-        System.out.println(author + "CountUrinals Test --> Test Cases => TEST EXECUTED -----");
+        System.out.println(author + "CountUrinals Test --> Test Cases => TEST SUCCESSFUL -----");
     }
 
     @Test
     void writeFile() {
-
+        File dir = new File("src/");
+        boolean flag = true;
+        String[] files = dir.list();
+        for(int i=0; i<files.length; i++) {
+            for(int j=i+1; j<files.length; j++)
+            {
+                if (files[i].equals(files[j]) && files[i].equals("urinal.dat")) {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        assertTrue(flag);
+        System.out.println(author + "Write File Tests --> Duplicate File => TEST SUCCESSFUL -----");
     }
 
     @Test
     void getFileName() {
         String g_fname = urinals.getFileName();
         String name_init = g_fname.substring(4, 8);
-        String name_last = g_fname.substring(g_fname.lastIndexOf('.'), g_fname.length());
+        String name_last = g_fname.substring(g_fname.lastIndexOf('.'));
         String name_digit = g_fname.substring(8, g_fname.lastIndexOf('.'));
         int n = Integer.parseInt(name_digit);
 
@@ -59,6 +72,6 @@ class urinalsTest {
                 () -> assertEquals("rule", name_init),
                 () -> assertEquals(".txt", name_last)
         );
-        System.out.println(author + "Write File Tests --> Bad File Name => TEST EXECUTED -----");
+        System.out.println(author + "Write File Tests --> Bad File Name => TEST SUCCESSFUL -----");
     }
 }
