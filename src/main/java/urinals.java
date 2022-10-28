@@ -1,12 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class urinals {
     public static void main(String[] args) {
         String input = "1";
-        int choice = 0;
+        int choice;
         Scanner in = new Scanner(System.in);
         System.out.print("\n[1] Keyboard Input.\n[2] Read File.\n\n\t(3) Exit\n\nEnter Your Choice [1 - 3]:");
         choice = in.nextInt();
@@ -14,15 +12,16 @@ public class urinals {
             case 1:
                 while (!input.equalsIgnoreCase("-1")) {
 
-                    System.out.print("\nEnter Input:");
-                    input = in.nextLine();
-                    System.out.println(countUrinals(input));
-                    break;
+                    System.out.print("\nEnter Input (-1 to Exit):");
+                    input = in.next();
+                    System.out.print(countUrinals(input));
                 }
+                break;
 
             case 2:
+                input = "urinal.dat";
                 try {
-                    openFile();
+                    openFile(input);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -35,7 +34,6 @@ public class urinals {
                 System.out.println("Invalid input!");
         }
         System.out.println("Exiting Program!!!");
-
     }
 
 
@@ -49,12 +47,14 @@ public class urinals {
         return true;
     }
 
-    public static void openFile() throws IOException {
-        FileReader fr = new FileReader("urinal.dat");
+    public static void openFile(String fileName) throws IOException {
+        FileReader fr = new FileReader("src/" + fileName);
         BufferedReader br = new BufferedReader(fr);
         String str;
+        String fname = getFileName();
         while ((str = br.readLine()) != null) {
-            System.out.println(countUrinals(str));
+            int ur_count = countUrinals(str);
+            writeFile(ur_count, fname);
         }
 
     }
@@ -78,8 +78,32 @@ public class urinals {
         return count;
     }
 
-    public static void writeFile(int count) {
+    public static void writeFile(int count, String fname) {
+        try {
+            FileWriter fw = new FileWriter(fname, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(Integer.toString(count));
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("writeFile I/O Exception");
+        }
+    }
 
+    public static String getFileName() {
+        String fname = "src/rule.txt";
+        int count = 0;
+        File file = new File(fname);
+        while (true) {
+            if (file.exists()) {
+                count++;
+                fname = fname.substring(0, 8) + count + ".txt";
+                file = new File(fname);
+            } else {
+                break;
+            }
+        }
+        return fname;
     }
 
 }
