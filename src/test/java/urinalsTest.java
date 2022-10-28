@@ -7,7 +7,8 @@ class urinalsTest {
     @Test
     void goodString() {
         assertAll(
-                () -> assertEquals(false, urinals.goodString("1110"))
+                () -> assertEquals(false, urinals.goodString("1110")),
+                () -> assertEquals(true, urinals.goodString("10101"))
         );
     }
 }
