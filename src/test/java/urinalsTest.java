@@ -11,4 +11,5 @@ class urinalsTest {
                 () -> assertEquals(true, urinals.goodString("10101"))
         );
     }
+
 }
