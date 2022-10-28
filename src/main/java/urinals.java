@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class urinals {
@@ -19,7 +23,14 @@ public class urinals {
         return true;
     }
 
-    public static void fileOperations() {
+    public static void openFile() throws IOException {
+        FileReader fr = new FileReader("urinal.dat");
+        BufferedReader br = new BufferedReader(fr);
+        String str  = new String();
+        while((str = br.readLine())!=null)
+        {
+            System.out.println(countUrinals(str));
+        }
 
     }
 
@@ -30,7 +41,7 @@ public class urinals {
             return -1;
 
         for (int i = 0; i < urinal.length(); i++) {
-            if (urinal.charAt(i) == '0'){
+            if (urinal.charAt(i) == '0') {
                 if (((i - 1 < 0) || urinal.charAt(i - 1) == '0') &&
                         ((i + 1 >= urinal.length()) || urinal.charAt(i + 1) == '0')) {
                     count++;
@@ -41,6 +52,10 @@ public class urinals {
         return count;
     }
 
+    public static void writeFile(int count)
+    {
+
+    }
 
 }
 

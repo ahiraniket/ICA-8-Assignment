@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class urinalsTest {
-
+    String author = "Aniket Ahir";
     @Test
     void goodString() {
         assertAll(
