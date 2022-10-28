@@ -27,8 +27,6 @@ class urinalsTest {
         System.out.println(author + "Read File Tests --> File Empty => TEST EXECUTED -----");
 
 
-
-
     }
 
     @Test
@@ -58,8 +56,8 @@ class urinalsTest {
         int n = Integer.parseInt(name_digit);
 
         assertAll(
-                () -> assertEquals("rule",name_init),
-                () -> assertEquals(".txt",name_last)
+                () -> assertEquals("rule", name_init),
+                () -> assertEquals(".txt", name_last)
         );
         System.out.println(author + "Write File Tests --> Bad File Name => TEST EXECUTED -----");
     }
