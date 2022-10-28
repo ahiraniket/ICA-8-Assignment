@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class urinals {
+    static String input_fname = "urinal.dat";
     public static void main(String[] args) {
         String input = "1";
         int choice;
@@ -19,12 +20,7 @@ public class urinals {
                 break;
 
             case 2:
-                input = "urinal.dat";
-                try {
-                    openFile(input);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                openFile(input_fname);
                 break;
 
             case 3:
@@ -47,14 +43,20 @@ public class urinals {
         return true;
     }
 
-    public static void openFile(String fileName) throws IOException {
-        FileReader fr = new FileReader("src/" + fileName);
-        BufferedReader br = new BufferedReader(fr);
-        String str;
-        String fname = getFileName();
-        while ((str = br.readLine()) != null) {
-            int ur_count = countUrinals(str);
-            writeFile(ur_count, fname);
+    public static void openFile(String fileName) {
+        FileReader fr;
+        try {
+            fr = new FileReader("src/" + fileName);
+
+            BufferedReader br = new BufferedReader(fr);
+            String str;
+            String fname = getFileName();
+            while ((str = br.readLine()) != null) {
+                int ur_count = countUrinals(str);
+                writeFile(ur_count, fname);
+            }
+        } catch (IOException e) {
+            System.out.println("openFile I/O Exception" + e);
         }
 
     }
